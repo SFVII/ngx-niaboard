@@ -1915,40 +1915,41 @@ class DesktopFullScreenComponent {
             this.inputType = defaultInputType;
             this.inputLimit = defaultInputLimit;
         }
-        if (!this.anim_done) {
-            let t2 = setInterval(() => {
-                if (this.LastBotAnswer && !this.LastBotAnswer?.text && !this.LastBotAnswer?.text?.includes('loading-dots') && this.anim_done) {
-                    clearInterval(t2);
-                    const string = this.LastBotAnswer?.text
-                        .split('<br/>').join(` `)
-                        .split('&eacute;').join('é')
-                        .split('&egrave;').join('è')
-                        .replace(/<[^>]*>?/gm, '')
-                        .split('&nbsp;').join('');
-                    this.msgArray = string.split('');
-                    if (this.messageCurrent !== string) {
-                        this.newMessage = true;
-                        this.messageCurrent = string;
-                        this.launchLoop();
-                    }
-                    //this.looper(array, timer);
-                }
-            }, 100);
-        }
-        else if (this.LastBotAnswer && this.LastBotAnswer.text) {
-            const string = this.LastBotAnswer?.text
-                .split('<br/>').join(` `)
-                .split('&eacute;').join('é')
-                .split('&egrave;').join('è')
-                .replace(/<[^>]*>?/gm, '')
-                .split('&nbsp;').join('');
-            this.msgArray = string.split('');
-            if (this.messageCurrent !== string && string !== '') {
-                this.newMessage = true;
-                this.messageCurrent = string;
-                this.launchLoop();
-            }
-        }
+        /*   if (!this.anim_done) {
+               let t2 = setInterval(() => {
+                   if (this.LastBotAnswer  && !this.LastBotAnswer?.text && !this.LastBotAnswer?.text?.includes('loading-dots') && this.anim_done) {
+                       clearInterval(t2);
+                       const string = this.LastBotAnswer?.text
+                           .split('<br/>').join(` `)
+                           .split('&eacute;').join('é')
+                           .split('&egrave;').join('è')
+                           .replace(/<[^>]*>?/gm, '')
+                           .split('&nbsp;').join('');
+   
+                       this.msgArray = string.split('');
+                       if (this.messageCurrent !== string) {
+                           this.newMessage = true;
+                           this.messageCurrent = string;
+                           this.launchLoop();
+                       }
+                       //this.looper(array, timer);
+                   }
+               }, 100);
+           } else if (this.LastBotAnswer && this.LastBotAnswer.text) {
+               const string = this.LastBotAnswer?.text
+                   .split('<br/>').join(` `)
+                   .split('&eacute;').join('é')
+                   .split('&egrave;').join('è')
+                   .replace(/<[^>]*>?/gm, '')
+                   .split('&nbsp;').join('');
+   
+               this.msgArray = string.split('');
+               if (this.messageCurrent !== string && string !== '') {
+                   this.newMessage = true;
+                   this.messageCurrent = string;
+                   this.launchLoop();
+               }
+           }*/
         setTimeout(() => {
             this.changed = true;
         }, 100);

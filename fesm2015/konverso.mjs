@@ -2050,7 +2050,7 @@ class DesktopFullScreenComponent {
         }
     }
     ngOnChanges() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g;
         if (this.afterProcess) {
             //this.LastUserInput = null;
             this.LastBotAnswer.text = this.config.AfterProcessScenario.BotMessage[this.service.locale];
@@ -2078,31 +2078,41 @@ class DesktopFullScreenComponent {
             this.inputType = defaultInputType;
             this.inputLimit = defaultInputLimit;
         }
-        if (!this.anim_done) {
-            let t2 = setInterval(() => {
-                var _a, _b, _c, _d;
-                if (this.LastBotAnswer && !((_a = this.LastBotAnswer) === null || _a === void 0 ? void 0 : _a.text) && !((_c = (_b = this.LastBotAnswer) === null || _b === void 0 ? void 0 : _b.text) === null || _c === void 0 ? void 0 : _c.includes('loading-dots')) && this.anim_done) {
-                    clearInterval(t2);
-                    const string = (_d = this.LastBotAnswer) === null || _d === void 0 ? void 0 : _d.text.split('<br/>').join(` `).split('&eacute;').join('é').split('&egrave;').join('è').replace(/<[^>]*>?/gm, '').split('&nbsp;').join('');
-                    this.msgArray = string.split('');
-                    if (this.messageCurrent !== string) {
-                        this.newMessage = true;
-                        this.messageCurrent = string;
-                        this.launchLoop();
-                    }
-                    //this.looper(array, timer);
-                }
-            }, 100);
-        }
-        else if (this.LastBotAnswer && this.LastBotAnswer.text) {
-            const string = (_h = this.LastBotAnswer) === null || _h === void 0 ? void 0 : _h.text.split('<br/>').join(` `).split('&eacute;').join('é').split('&egrave;').join('è').replace(/<[^>]*>?/gm, '').split('&nbsp;').join('');
-            this.msgArray = string.split('');
-            if (this.messageCurrent !== string && string !== '') {
-                this.newMessage = true;
-                this.messageCurrent = string;
-                this.launchLoop();
-            }
-        }
+        /*   if (!this.anim_done) {
+               let t2 = setInterval(() => {
+                   if (this.LastBotAnswer  && !this.LastBotAnswer?.text && !this.LastBotAnswer?.text?.includes('loading-dots') && this.anim_done) {
+                       clearInterval(t2);
+                       const string = this.LastBotAnswer?.text
+                           .split('<br/>').join(` `)
+                           .split('&eacute;').join('é')
+                           .split('&egrave;').join('è')
+                           .replace(/<[^>]*>?/gm, '')
+                           .split('&nbsp;').join('');
+   
+                       this.msgArray = string.split('');
+                       if (this.messageCurrent !== string) {
+                           this.newMessage = true;
+                           this.messageCurrent = string;
+                           this.launchLoop();
+                       }
+                       //this.looper(array, timer);
+                   }
+               }, 100);
+           } else if (this.LastBotAnswer && this.LastBotAnswer.text) {
+               const string = this.LastBotAnswer?.text
+                   .split('<br/>').join(` `)
+                   .split('&eacute;').join('é')
+                   .split('&egrave;').join('è')
+                   .replace(/<[^>]*>?/gm, '')
+                   .split('&nbsp;').join('');
+   
+               this.msgArray = string.split('');
+               if (this.messageCurrent !== string && string !== '') {
+                   this.newMessage = true;
+                   this.messageCurrent = string;
+                   this.launchLoop();
+               }
+           }*/
         setTimeout(() => {
             this.changed = true;
         }, 100);
