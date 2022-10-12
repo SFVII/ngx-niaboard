@@ -1889,7 +1889,7 @@ class DesktopFullScreenComponent {
     }
     ngOnChanges() {
         if (this.afterProcess) {
-            this.LastUserInput = null;
+            //this.LastUserInput = null;
             this.LastBotAnswer.text = this.config.AfterProcessScenario.BotMessage[this.service.locale];
             if (this.config.AfterProcessScenario.FormElements[0][0].label == 'Jour 1') {
                 let day1 = this.days[new Date().getDay() - 1];

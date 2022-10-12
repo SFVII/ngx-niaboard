@@ -2052,7 +2052,7 @@ class DesktopFullScreenComponent {
     ngOnChanges() {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         if (this.afterProcess) {
-            this.LastUserInput = null;
+            //this.LastUserInput = null;
             this.LastBotAnswer.text = this.config.AfterProcessScenario.BotMessage[this.service.locale];
             if (this.config.AfterProcessScenario.FormElements[0][0].label == 'Jour 1') {
                 let day1 = this.days[new Date().getDay() - 1];
