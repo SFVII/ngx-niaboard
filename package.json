@@ -9,7 +9,7 @@
     "tslib": ">=1.10.0",
     "ngx-nowbrains-animations": "github:sfvii/ngx-nowbrains-animations",
     "nowboard-icon": "github:SFVII/ngx-nb-icon",
-    "striptags": ""
+    "striptags": "3.2.0"
   },
   "module": "fesm2015/konverso.mjs",
   "es2020": "fesm2020/konverso.mjs",
