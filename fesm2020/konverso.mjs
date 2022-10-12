@@ -629,7 +629,6 @@ class KonversoService {
      * Initialize Data for User Instance
      */
     initInstance(config) {
-        console.log('FOKING CONFIG', config);
         this._auth = !!config.auth;
         if (config.endpoint) {
             this.endpoint = config.endpoint;
@@ -649,8 +648,6 @@ class KonversoService {
                     }
                     this.locale = user?.lang;
                     this.lang.next(this.locale);
-                    this.localModalAttachments = config.ModalAttachmentText[this.locale];
-                    console.log(config.ModalAttachmentText, user.lang);
                     if (config.InputPlaceHolder && config.InputPlaceHolder[this.locale]) {
                         this.PlaceHolder = config.InputPlaceHolder[this.locale];
                     }
@@ -691,8 +688,6 @@ class KonversoService {
                 if (config.CustomWelcome && config.BotInitMessage.Welcome && config.BotInitMessage.Welcome[this.locale]) {
                     this.Welcome = config.BotInitMessage.Welcome[this.locale];
                 }
-                this.localModalAttachments = config.ModalAttachmentText[config.lang];
-                console.log(config.ModalAttachmentText, config.lang);
                 this.user = {
                     userId: this.guid(),
                     lang: config.lang
