@@ -15,8 +15,6 @@ export declare class KonversoComponent implements OnInit {
     afterProcess: boolean;
     fileNb: number;
     fileInput: HTMLInputElement;
-    step: number;
-    stepChange: EventEmitter<number>;
     documentList: Array<any>;
     query: string;
     isMobile: boolean;
@@ -28,7 +26,7 @@ export declare class KonversoComponent implements OnInit {
     History: (UserInput | OpenChatBotResponse)[];
     disableUserInput: boolean;
     LastUserInput: UserInput;
-    private _lastBotAnswer;
+    LastBotAnswer: OpenChatBotResponse;
     PlaceHolder: string[];
     NumberPlaceHolder: string[];
     Welcome: string;
@@ -37,13 +35,11 @@ export declare class KonversoComponent implements OnInit {
     ngOnInit(): void;
     handleSendCalendar($event: any): void;
     send($event: UserInput): Promise<boolean>;
-    get LastBotAnswer(): OpenChatBotResponse;
     sendBotCommand($event: string, push?: boolean): Promise<void>;
-    private catchStep;
     onFileSelected(event: any): void;
     addFiles(): void;
     private triggerKbotResponse;
     private _isMobile;
     static ɵfac: i0.ɵɵFactoryDeclaration<KonversoComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<KonversoComponent, "ngx-konverso", never, { "showInput": "showInput"; "afterProcess": "afterProcess"; "fileNb": "fileNb"; "fileInput": "fileInput"; "step": "step"; }, { "ready": "ready"; "sended": "sended"; "sendCalendar": "sendCalendar"; "files": "files"; "stepChange": "stepChange"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<KonversoComponent, "ngx-konverso", never, { "showInput": "showInput"; "afterProcess": "afterProcess"; "fileNb": "fileNb"; "fileInput": "fileInput"; }, { "ready": "ready"; "sended": "sended"; "sendCalendar": "sendCalendar"; "files": "files"; }, never, never, false>;
 }
