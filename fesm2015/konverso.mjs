@@ -650,8 +650,10 @@ class KonversoService {
                     }
                     this.locale = user === null || user === void 0 ? void 0 : user.lang;
                     this.lang.next(this.locale);
-                    this.localModalAttachments = config === null || config === void 0 ? void 0 : config.ModalAttachmentText[this.locale];
-                    console.log(config.ModalAttachmentText, user.lang);
+                    if (config && (config === null || config === void 0 ? void 0 : config.ModalAttachmentText)) {
+                        this.localModalAttachments = config === null || config === void 0 ? void 0 : config.ModalAttachmentText[this.locale];
+                    }
+                    // console.log(config.ModalAttachmentText, user.lang)
                     if (config.InputPlaceHolder && config.InputPlaceHolder[this.locale]) {
                         this.PlaceHolder = config.InputPlaceHolder[this.locale];
                     }

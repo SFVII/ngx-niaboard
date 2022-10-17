@@ -651,8 +651,10 @@ class KonversoService {
                     }
                     this.locale = user?.lang;
                     this.lang.next(this.locale);
-                    this.localModalAttachments = config?.ModalAttachmentText[this.locale];
-                    console.log(config.ModalAttachmentText, user.lang);
+                    if (config && config?.ModalAttachmentText) {
+                        this.localModalAttachments = config?.ModalAttachmentText[this.locale];
+                    }
+                    // console.log(config.ModalAttachmentText, user.lang)
                     if (config.InputPlaceHolder && config.InputPlaceHolder[this.locale]) {
                         this.PlaceHolder = config.InputPlaceHolder[this.locale];
                     }
