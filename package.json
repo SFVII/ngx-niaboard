@@ -8,7 +8,8 @@
   "dependencies": {
     "tslib": ">=1.10.0",
     "ngx-nowbrains-animations": "github:sfvii/ngx-nowbrains-animations",
-    "nowboard-icon": "github:SFVII/ngx-nb-icon"
+    "nowboard-icon": "github:SFVII/ngx-nb-icon",
+    "striptags": ""
   },
   "module": "fesm2015/konverso.mjs",
   "es2020": "fesm2020/konverso.mjs",

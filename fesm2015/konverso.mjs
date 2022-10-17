@@ -10,6 +10,7 @@ import * as i5 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i4 from 'nowboard-icon';
 import { NowboardIconService, NowboardIconModule } from 'nowboard-icon';
+import striptags from 'striptags';
 import * as i3 from 'ngx-nowbrains-animations';
 import { FadeSlideInOut, FadeSlideInOutKonversoOpacityOut, FadeSlideInOutKonversoTranslateOut, FadeSlideInOutKonversoHeight } from 'ngx-nowbrains-animations';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -2037,7 +2038,7 @@ class DesktopFullScreenComponent {
                     'FRIDAY',
                     'SATURDAY',
                     'SUNDAY',
-                    'MONDAY',
+                    'MONDAY'
                 ];
             }
         });
@@ -2283,16 +2284,18 @@ class KonversoComponent {
         this.showInput = true;
         this.afterProcess = false;
         this.fileNb = 0;
+        this.step = 1;
+        this.stepChange = new EventEmitter();
         this.documentList = [];
         this.AssistantMode = false;
         this.disableUserInput = false;
+        this._lastBotAnswer = new BehaviorSubject(null);
         if (service._auth) {
             this.service.authentication.subscribe(() => {
                 this.ngOnInit();
             });
         }
         this.service.emulationTrigger.subscribe((response) => {
-            console.log(response);
             if (response) {
                 if (!this.LastUserInput) {
                     this.LastUserInput = {
@@ -2331,7 +2334,7 @@ class KonversoComponent {
         if (this.Welcome) {
             const customWelcome = BotMessageSample;
             customWelcome.text = this.Welcome;
-            this.LastBotAnswer = customWelcome;
+            this._lastBotAnswer.next(customWelcome);
             this.History.push(customWelcome);
         }
     }
@@ -2341,16 +2344,14 @@ class KonversoComponent {
     send($event) {
         return __awaiter(this, void 0, void 0, function* () {
             if ($event.message === 'exit') {
-                this.sendBotCommand('exit', false).catch((err) => console.log('fail reset session'));
+                //this.sendBotCommand('exit', false).catch((err: any) => console.log('fail reset session'));
                 return false;
             }
             this.sended.emit(true);
             this.LastBotAnswer.text = '<br>' + DotLoaderTemplate(this.service.ColorSet.Primary);
-            console.log($event);
             if (parseInt($event.message) == NaN) {
                 this.History.push($event);
             }
-            //console.log(parseInt($event.message));
             if (this.AssistantMode) {
                 if (this.LastUserInput) {
                     if (parseInt($event.message) == NaN) {
@@ -2359,13 +2360,21 @@ class KonversoComponent {
                     }
                 }
                 else {
-                    this.LastUserInput = $event;
+                    this.LastUserInput = $event || {
+                        message: '',
+                        date: '',
+                        error: null
+                    };
                     this.LastUserInput.message = ' ' + $event.message.replace(/\n/g, '<br>');
                     this.LastUserInput.date = $event.date;
                 }
             }
             else {
-                this.LastUserInput = $event;
+                this.LastUserInput = $event || {
+                    message: '',
+                    date: '',
+                    error: null
+                };
                 this.LastUserInput.message = ' ' + $event.message.replace(/\n/g, '<br>');
                 this.LastUserInput.date = $event.date;
             }
@@ -2376,6 +2385,9 @@ class KonversoComponent {
             });
             this.triggerKbotResponse(response);
         });
+    }
+    get LastBotAnswer() {
+        return this._lastBotAnswer.getValue();
     }
     sendBotCommand($event, push = true) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -2394,12 +2406,12 @@ class KonversoComponent {
                 this.disableUserInput = false;
             }
             if (response && response.response && push) {
-                this.LastBotAnswer = response.response;
+                this._lastBotAnswer.next(response.response);
                 this.History.push(response.response);
             }
             else if (response && response.response && !push) {
+                this._lastBotAnswer.next(response.response);
                 this.LastUserInput = null;
-                this.LastBotAnswer = response.response;
                 this.History.push(response.response);
             }
             else {
@@ -2407,16 +2419,21 @@ class KonversoComponent {
             }
         });
     }
+    catchStep() {
+        this._lastBotAnswer.subscribe((event) => {
+            if (event && event.text && event.text.includes('step')) {
+                const step = striptags(event.text);
+                this.stepChange.emit(Number(step));
+            }
+        });
+    }
     onFileSelected(event) {
-        console.log('On ffile select', event),
-            Array.from(event.target.files).forEach((f) => {
-                console.log('Document list feed', f);
-                this.documentList.push(f);
-            });
+        Array.from(event.target.files).forEach((f) => {
+            this.documentList.push(f);
+        });
     }
     addFiles() {
         if (this.fileInput) {
-            console.log('OK fileInput exist');
             this.fileInput.onchange = (event) => {
                 this.onFileSelected(event);
             };
@@ -2431,6 +2448,9 @@ class KonversoComponent {
                 this.files.emit(this.documentList);
             });
         }
+        else {
+            console.error('Input not found');
+        }
     }
     triggerKbotResponse(response) {
         if (response && response.response) {
@@ -2441,7 +2461,7 @@ class KonversoComponent {
             else {
                 this.disableUserInput = false;
             }
-            this.LastBotAnswer = response.response;
+            this._lastBotAnswer.next(response.response);
             this.History.push(response.response);
         }
     }
@@ -2470,7 +2490,7 @@ class KonversoComponent {
     }
 }
 KonversoComponent.ɵfac = function KonversoComponent_Factory(t) { return new (t || KonversoComponent)(i0.ɵɵdirectiveInject(KonversoService), i0.ɵɵdirectiveInject(i2.MatDialog)); };
-KonversoComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: KonversoComponent, selectors: [["ngx-konverso"]], inputs: { showInput: "showInput", afterProcess: "afterProcess", fileNb: "fileNb", fileInput: "fileInput" }, outputs: { ready: "ready", sended: "sended", sendCalendar: "sendCalendar", files: "files" }, decls: 1, vars: 16, consts: [[3, "assets", "firstVisit", "firstUsageStory", "displayData", "disableUserInput", "LastBotAnswer", "LastUserInput", "AssistantMode", "PlaceHolder", "NumberPlaceHolder", "IsMobile", "showInput", "afterProcess", "nbFiles", "send", "sendBotCommand", "readySend", "sendCalendar", "openUpload"]], template: function KonversoComponent_Template(rf, ctx) {
+KonversoComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: KonversoComponent, selectors: [["ngx-konverso"]], inputs: { showInput: "showInput", afterProcess: "afterProcess", fileNb: "fileNb", fileInput: "fileInput", step: "step" }, outputs: { ready: "ready", sended: "sended", sendCalendar: "sendCalendar", files: "files", stepChange: "stepChange" }, decls: 1, vars: 16, consts: [[3, "assets", "firstVisit", "firstUsageStory", "displayData", "disableUserInput", "LastBotAnswer", "LastUserInput", "AssistantMode", "PlaceHolder", "NumberPlaceHolder", "IsMobile", "showInput", "afterProcess", "nbFiles", "send", "sendBotCommand", "readySend", "sendCalendar", "openUpload"]], template: function KonversoComponent_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementStart(0, "bot-full-screen", 0);
             i0.ɵɵlistener("send", function KonversoComponent_Template_bot_full_screen_send_0_listener($event) { return ctx.send($event); })("sendBotCommand", function KonversoComponent_Template_bot_full_screen_sendBotCommand_0_listener($event) { return ctx.sendBotCommand($event); })("readySend", function KonversoComponent_Template_bot_full_screen_readySend_0_listener($event) { return ctx._ready.emit($event); })("sendCalendar", function KonversoComponent_Template_bot_full_screen_sendCalendar_0_listener($event) { return ctx.handleSendCalendar($event); })("openUpload", function KonversoComponent_Template_bot_full_screen_openUpload_0_listener() { return ctx.addFiles(); });
@@ -2501,6 +2521,10 @@ KonversoComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: KonversoC
                 type: Input
             }], fileInput: [{
                 type: Input
+            }], step: [{
+                type: Input
+            }], stepChange: [{
+                type: Output
             }] });
 })();
 
