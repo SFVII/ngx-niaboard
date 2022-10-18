@@ -60,7 +60,7 @@ export interface KonversoInterface {
     InputNumberPlaceHolder: WildCardObjectArray;
     AfterProcess: boolean;
     AfterProcessScenario: any;
-    ModalAttachmentText: {
+    ModalAttachmentText?: {
         fr: {
             SEND_ME_YOUR_ATTACHMENTS: string;
             DROP_PHOTO: string;

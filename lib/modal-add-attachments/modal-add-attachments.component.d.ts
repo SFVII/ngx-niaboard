@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '../translate.service';
 import { KonversoService } from '../konverso.service';
 import * as i0 from "@angular/core";
 export declare class ModalAddAttachmentsComponent implements OnInit {
@@ -10,6 +11,7 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
         };
     };
     service: KonversoService;
+    translate: TranslateService;
     private dialogRef;
     documentList: Array<any>;
     input: HTMLInputElement;
@@ -19,10 +21,11 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
             input: HTMLInputElement;
             documentList: Array<any>;
         };
-    }, service: KonversoService, dialogRef: MatDialogRef<ModalAddAttachmentsComponent>);
+    }, service: KonversoService, translate: TranslateService, dialogRef: MatDialogRef<ModalAddAttachmentsComponent>);
     ngOnInit(): void;
     deleteFile(file: any): void;
     sendAttachments(): void;
+    close(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ModalAddAttachmentsComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<ModalAddAttachmentsComponent, "modal-add-attachments", never, {}, {}, never, never, false>;
 }
