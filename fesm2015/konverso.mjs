@@ -2056,8 +2056,12 @@ class DesktopFullScreenComponent {
     }
     changeNumber(value) {
         this.impact = value;
-        if ((+this.userInput + value) > 0) {
+        if ((+this.userInput + value) >= 1) {
             this.userInput = (+this.userInput + value).toString();
+        }
+        else {
+            this.userInput = '1';
+            this.impact = 1;
         }
     }
     ngOnChanges() {
