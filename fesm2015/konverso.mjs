@@ -2368,7 +2368,7 @@ class KonversoComponent {
                 return false;
             }
             this.sended.emit(true);
-            console.log(this.LastUserInput.message, 'before edit');
+            console.log($event);
             this.LastBotAnswer.text = '<br>' + DotLoaderTemplate(this.service.ColorSet.Primary);
             if (parseInt($event.message) == NaN) {
                 this.History.push($event);
