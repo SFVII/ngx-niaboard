@@ -88,6 +88,7 @@ export declare class DesktopFullScreenComponent implements OnChanges, OnInit {
     animationSlideValue: number;
     animationSlideValueAdd: number;
     animationHeightTTX: number;
+    impact: number;
     changeNumber(value: number): void;
     constructor(translate: TranslateService, service: KonversoService, animations: AnimationsService, config: KonversoInterface);
     ngOnChanges(): void;
