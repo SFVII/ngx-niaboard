@@ -2368,6 +2368,7 @@ class KonversoComponent {
                 return false;
             }
             this.sended.emit(true);
+            console.log(this.LastUserInput.message, 'before edit');
             this.LastBotAnswer.text = '<br>' + DotLoaderTemplate(this.service.ColorSet.Primary);
             if (parseInt($event.message) == NaN) {
                 this.History.push($event);
@@ -2406,6 +2407,7 @@ class KonversoComponent {
                 }
                 this.LastUserInput.date = $event.date;
             }
+            console.log(this.LastUserInput.message);
             const index = this.History.length - 1;
             const response = yield this.service.send($event.message).catch((err) => {
                 //@ts-ignore
