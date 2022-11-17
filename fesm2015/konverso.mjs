@@ -2056,9 +2056,11 @@ class DesktopFullScreenComponent {
     }
     changeNumber(value) {
         this.impact = value;
+        console.log(value, this.impact);
         if ((+this.userInput + value) >= 1) {
             this.userInput = (+this.userInput + value).toString();
         }
+        console.log(this.userInput);
     }
     ngOnChanges() {
         var _a, _b, _c, _d, _e, _f, _g;
