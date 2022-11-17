@@ -90,7 +90,6 @@ export declare class DesktopFullScreenComponent implements OnChanges, OnInit {
     animationHeightTTX: number;
     impact: number;
     changeNumber(value: number): void;
-    changeNumberInput(value: number): void;
     constructor(translate: TranslateService, service: KonversoService, animations: AnimationsService, config: KonversoInterface);
     ngOnChanges(): void;
     bindCalendar($event: any): void;
