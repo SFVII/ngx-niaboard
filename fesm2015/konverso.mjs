@@ -2385,6 +2385,10 @@ class KonversoComponent {
                         error: null
                     };
                     this.LastUserInput.message = ' ' + $event.message.replace(/\n/g, '<br>');
+                    let last = $event.message.split('<br>').length;
+                    if ($event.message.split('<br>')[last - 1] == '') {
+                        console.log($event.message.slice(0, $event.message.lastIndexOf('<br>')));
+                    }
                     this.LastUserInput.date = $event.date;
                 }
             }
@@ -2395,6 +2399,10 @@ class KonversoComponent {
                     error: null
                 };
                 this.LastUserInput.message = ' ' + $event.message.replace(/\n/g, '<br>');
+                let last = $event.message.split('<br>').length;
+                if ($event.message.split('<br>')[last - 1] == '') {
+                    console.log($event.message.slice(0, $event.message.lastIndexOf('<br>')));
+                }
                 this.LastUserInput.date = $event.date;
             }
             const index = this.History.length - 1;
