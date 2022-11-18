@@ -2056,7 +2056,7 @@ class DesktopFullScreenComponent {
         console.log(value, this.userInput);
         if ((+this.userInput + value) >= 1) {
             this.userInput = (+this.userInput + value).toString();
-            this.impact = (+this.userInput + value);
+            this.impact = (+this.userInput);
         }
         console.log(this.userInput);
     }
