@@ -2030,7 +2030,7 @@ class DesktopFullScreenComponent {
         this.animationSlideValue = ANIMATION_SLIDE_VALUE;
         this.animationSlideValueAdd = ANIMATION_SLIDE_VALUE_ADD;
         this.animationHeightTTX = ANIMATION_HEIGHT_TTX;
-        this.impact = 2;
+        this.impact = 1;
         service.lang.subscribe((r) => {
             if (service.locale) {
                 this.sendBtn = translate.translate(service.locale, 'SEND');
