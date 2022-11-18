@@ -1891,10 +1891,12 @@ class DesktopFullScreenComponent {
     }
     changeNumber(value) {
         // this.impact = value;
+        console.log(value, this.userInput);
         if ((+this.userInput + value) >= 1) {
             this.userInput = (+this.userInput + value).toString();
             this.impact = (+this.userInput + value);
         }
+        console.log(this.userInput);
     }
     changeNumberInput(value) {
         console.log(value);
