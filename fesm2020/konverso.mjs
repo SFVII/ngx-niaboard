@@ -1935,7 +1935,6 @@ class DesktopFullScreenComponent {
                 this.config.AfterProcessScenario.FormElements[2][0].label = day3;
             }
         }
-        console.log(this.LastBotAnswer);
         this.changed = false;
         if (this.LastBotAnswer && document.getElementById('text') && this.LastBotAnswer?.text && !this.LastBotAnswer?.text?.includes('loading-dots')) {
             document.getElementById('text').innerHTML = '';

@@ -2104,7 +2104,6 @@ class DesktopFullScreenComponent {
                 this.config.AfterProcessScenario.FormElements[2][0].label = day3;
             }
         }
-        console.log(this.LastBotAnswer);
         this.changed = false;
         if (this.LastBotAnswer && document.getElementById('text') && ((_a = this.LastBotAnswer) === null || _a === void 0 ? void 0 : _a.text) && !((_c = (_b = this.LastBotAnswer) === null || _b === void 0 ? void 0 : _b.text) === null || _c === void 0 ? void 0 : _c.includes('loading-dots'))) {
             document.getElementById('text').innerHTML = '';
