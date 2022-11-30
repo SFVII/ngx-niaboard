@@ -2318,7 +2318,7 @@ class KonversoComponent {
             };
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
                 data: {
-                    panelClass: 'modal-xl-preview',
+                    panelClass: 'modal-small',
                     data: { input: this.fileInput, documentList: this.documentList }
                 }
             });
