@@ -2496,14 +2496,13 @@ class KonversoComponent {
         });
     }
     addFiles() {
-        console.log('on passe dans addfiles');
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
                 this.onFileSelected(event);
             };
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
+                panelClass: 'modal-small',
                 data: {
-                    panelClass: 'modal-small',
                     data: { input: this.fileInput, documentList: this.documentList }
                 }
             });
