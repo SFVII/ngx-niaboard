@@ -2496,6 +2496,7 @@ class KonversoComponent {
         });
     }
     addFiles() {
+        console.log('on passe dans addfiles');
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
                 this.onFileSelected(event);
