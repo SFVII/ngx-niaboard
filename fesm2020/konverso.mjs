@@ -2313,6 +2313,7 @@ class KonversoComponent {
         });
     }
     addFiles() {
+        console.log(this.documentList);
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
                 this.onFileSelected(event);
