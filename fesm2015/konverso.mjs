@@ -2507,6 +2507,7 @@ class KonversoComponent {
                 }
             });
             dialog.afterClosed().subscribe((documentList) => {
+                console.log(this.documentList);
                 this.documentList = documentList;
                 this.files.emit(this.documentList);
             });
