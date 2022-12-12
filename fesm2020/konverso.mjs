@@ -862,9 +862,7 @@ class ModalAddAttachmentsComponent {
         this.displayText = {};
     }
     ngOnInit() {
-        console.log(this.data);
-        console.log(this.data.data.documentList);
-        this.documentList = this.data.data.documentList;
+        this.documentList = this.data.data.documentList || [];
         this.input = this.data.data.input;
     }
     deleteFile(file) {
