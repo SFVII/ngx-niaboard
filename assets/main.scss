@@ -746,8 +746,10 @@
             .bot-answer {
               width: 70vw !important;
               text-align: center;
-              margin: 5% auto auto!important;
               font-size: 15px!important;
+              margin-top: 5% !important;
+              margin-left: auto !important;
+              margin-right: auto !important;
 
               .position-relative {
                 position: relative;
