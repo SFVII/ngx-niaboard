@@ -1782,7 +1782,7 @@ function DesktopFullScreenComponent_ng_container_3_Template(rf, ctx) { if (rf & 
 } }
 const _c4 = function () { return { "background-color": "#100652 0% 0% no-repeat padding-box;" }; };
 const defaultInputType = 'text';
-const defaultInputLimit = 300;
+const defaultInputLimit = 500;
 const ANIMATION_TTX = 750;
 const ANIMATION_TTX_ADD = 250;
 const ANIMATION_SLIDE_VALUE = -50;
