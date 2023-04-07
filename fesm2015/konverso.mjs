@@ -867,6 +867,20 @@ class ModalAddAttachmentsComponent {
     ngOnInit() {
         this.documentList = this.data.data.documentList || [];
         this.input = this.data.data.input;
+        this.input.onchange = ($event) => {
+            console.log('on change input');
+            console.log($event);
+        };
+    }
+    setPreview(index, blob) {
+        return __awaiter(this, void 0, void 0, function* () {
+            setTimeout(() => {
+                const image = document.getElementById('img-preview-' + index);
+                image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
+                image.style.backgroundSize = 'cover';
+                image.style.backgroundPosition = 'center center';
+            }, 500);
+        });
     }
     deleteFile(file) {
         this.documentList.splice(this.documentList.indexOf(file), 1);
