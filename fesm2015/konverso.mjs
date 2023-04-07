@@ -868,7 +868,7 @@ class ModalAddAttachmentsComponent {
         this.input.onchange = ($event) => {
             // @ts-ignore
             Array.from(event.target.files).forEach((f) => __awaiter(this, void 0, void 0, function* () {
-                // this.documentList.push(f);
+                this.documentList.push(f);
                 let index = this.documentList.indexOf(f);
                 yield this.setPreview(index, f);
             }));
@@ -878,6 +878,7 @@ class ModalAddAttachmentsComponent {
         return __awaiter(this, void 0, void 0, function* () {
             setTimeout(() => {
                 const image = document.getElementById('img-preview-' + index);
+                console.log(image);
                 image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
                 image.style.backgroundSize = 'cover';
                 image.style.backgroundPosition = 'center center';
