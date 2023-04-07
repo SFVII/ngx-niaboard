@@ -878,7 +878,6 @@ class ModalAddAttachmentsComponent {
         return __awaiter(this, void 0, void 0, function* () {
             setTimeout(() => {
                 const image = document.getElementById('img-preview-' + index);
-                console.log(image);
                 image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
                 image.style.backgroundSize = 'cover';
                 image.style.backgroundPosition = 'center center';
