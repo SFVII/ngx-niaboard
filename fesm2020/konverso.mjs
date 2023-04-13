@@ -2347,7 +2347,7 @@ class KonversoComponent {
     onFileSelected(event) {
         Array.from(event.target.files).forEach((f) => {
             console.log(this.documentList);
-            // this.documentList.push(f);
+            this.documentList.push(f);
         });
     }
     addFiles() {
@@ -2357,7 +2357,7 @@ class KonversoComponent {
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
                 console.log(event);
-                //this.onFileSelected(event);
+                this.onFileSelected(event);
             };
             console.log(this.documentList);
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
@@ -2412,14 +2412,14 @@ class KonversoComponent {
         return isMobile.any();
     }
     addNewFiles(event) {
-        if (this.documentList == undefined) {
-            this.documentList = [];
-        }
-        console.log(event, 'on passe dans addnewfiles par erreur');
-        if (event && event.length > 0) {
-            this.documentList.push(...event);
-            console.log(this.documentList);
-        }
+        // if (this.documentList == undefined) {
+        //     this.documentList = [];
+        // }
+        // console.log(event, 'on passe dans addnewfiles par erreur');
+        // if (event && event.length > 0) {
+        //     this.documentList.push(...event);
+        //     console.log(this.documentList);
+        // }
     }
 }
 KonversoComponent.ɵfac = function KonversoComponent_Factory(t) { return new (t || KonversoComponent)(i0.ɵɵdirectiveInject(KonversoService), i0.ɵɵdirectiveInject(i3.MatDialog)); };
