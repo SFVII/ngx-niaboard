@@ -2600,6 +2600,7 @@ class KonversoComponent {
         }
         if (event && event.length > 0) {
             this.documentList.push(...event);
+            console.log(this.documentList);
         }
     }
 }
