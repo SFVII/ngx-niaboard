@@ -870,14 +870,14 @@ class ModalAddAttachmentsComponent {
                 await this.setPreview(index, f);
             });
         }
-        this.input.onchange = ($event) => {
-            // @ts-ignore
-            Array.from(event.target.files).forEach(async (f) => {
-                this.documentList.push(f);
-                let index = this.documentList.indexOf(f);
-                await this.setPreview(index, f);
-            });
-        };
+        // this.input.onchange= ($event: any) => {
+        //     // @ts-ignore
+        //     Array.from(event.target.files).forEach(async (f: any) => {
+        //         this.documentList.push(f);
+        //         let index = this.documentList.indexOf(f);
+        //         await this.setPreview(index, f)
+        //       });
+        // };
     }
     async setPreview(index, blob) {
         setTimeout(() => {
