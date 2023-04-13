@@ -865,6 +865,13 @@ class ModalAddAttachmentsComponent {
     ngOnInit() {
         this.documentList = this.data.data.documentList || [];
         this.input = this.data.data.input;
+        if (this.documentList.length > 0) {
+            this.documentList.forEach((f) => __awaiter(this, void 0, void 0, function* () {
+                this.documentList.push(f);
+                let index = this.documentList.indexOf(f);
+                yield this.setPreview(index, f);
+            }));
+        }
         this.input.onchange = ($event) => {
             // @ts-ignore
             Array.from(event.target.files).forEach((f) => __awaiter(this, void 0, void 0, function* () {
@@ -2172,6 +2179,19 @@ class DesktopFullScreenComponent {
                 }
             }
             this.addFiles.emit(list);
+            setTimeout(() => {
+                list.forEach((d) => {
+                    if (this.userInput.includes(d === null || d === void 0 ? void 0 : d.name)) {
+                        // @ts-ignore
+                        this.userInput.replace(d.name, '');
+                    }
+                    else {
+                        let name = d.name.slice(0, d.name.lastIndexOf('.'));
+                        // @ts-ignore
+                        this.userInput.replace(d.name, '');
+                    }
+                });
+            }, 100);
         });
     }
     bindCalendar($event) {
