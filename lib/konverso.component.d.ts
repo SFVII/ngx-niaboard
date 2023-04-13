@@ -44,6 +44,7 @@ export declare class KonversoComponent implements OnInit {
     addFiles(): void;
     private triggerKbotResponse;
     private _isMobile;
+    addNewFiles(event: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<KonversoComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<KonversoComponent, "ngx-konverso", never, { "showInput": "showInput"; "afterProcess": "afterProcess"; "fileNb": "fileNb"; "fileInput": "fileInput"; "step": "step"; }, { "ready": "ready"; "sended": "sended"; "sendCalendar": "sendCalendar"; "files": "files"; "stepChange": "stepChange"; }, never, never, false>;
 }

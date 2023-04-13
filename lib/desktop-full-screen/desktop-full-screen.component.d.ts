@@ -31,6 +31,7 @@ export declare class DesktopFullScreenComponent implements OnChanges, OnInit {
     sendEvent: EventEmitter<string>;
     sendCalendar: EventEmitter<any>;
     openUpload: EventEmitter<boolean>;
+    addFiles: EventEmitter<any>;
     userInput: string;
     currentPlaceHolder: string;
     sendBtn: string;
@@ -93,6 +94,7 @@ export declare class DesktopFullScreenComponent implements OnChanges, OnInit {
     changeNumberInput(value: any): void;
     constructor(translate: TranslateService, service: KonversoService, animations: AnimationsService, config: KonversoInterface);
     ngOnChanges(): void;
+    onPaste(e: any): Promise<void>;
     bindCalendar($event: any): void;
     getCalendar(): void;
     skip(): void;
@@ -105,5 +107,5 @@ export declare class DesktopFullScreenComponent implements OnChanges, OnInit {
     scroll(scrollHeight: number): Promise<number>;
     byPassUserInput(botdata: string, i?: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<DesktopFullScreenComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<DesktopFullScreenComponent, "bot-full-screen", never, { "AssistantMode": "AssistantMode"; "assets": "assets"; "firstVisit": "firstVisit"; "firstUsageStory": "firstUsageStory"; "displayData": "displayData"; "disableUserInput": "disableUserInput"; "LastUserInput": "LastUserInput"; "LastBotAnswer": "LastBotAnswer"; "PlaceHolder": "PlaceHolder"; "IsMobile": "IsMobile"; "showInput": "showInput"; "NumberPlaceHolder": "NumberPlaceHolder"; "afterProcess": "afterProcess"; "nbFiles": "nbFiles"; }, { "readySend": "readySend"; "send": "send"; "sendBotCommand": "sendBotCommand"; "sendEvent": "sendEvent"; "sendCalendar": "sendCalendar"; "openUpload": "openUpload"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<DesktopFullScreenComponent, "bot-full-screen", never, { "AssistantMode": "AssistantMode"; "assets": "assets"; "firstVisit": "firstVisit"; "firstUsageStory": "firstUsageStory"; "displayData": "displayData"; "disableUserInput": "disableUserInput"; "LastUserInput": "LastUserInput"; "LastBotAnswer": "LastBotAnswer"; "PlaceHolder": "PlaceHolder"; "IsMobile": "IsMobile"; "showInput": "showInput"; "NumberPlaceHolder": "NumberPlaceHolder"; "afterProcess": "afterProcess"; "nbFiles": "nbFiles"; }, { "readySend": "readySend"; "send": "send"; "sendBotCommand": "sendBotCommand"; "sendEvent": "sendEvent"; "sendCalendar": "sendCalendar"; "openUpload": "openUpload"; "addFiles": "addFiles"; }, never, never, false>;
 }
