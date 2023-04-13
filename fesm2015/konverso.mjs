@@ -874,8 +874,9 @@ class ModalAddAttachmentsComponent {
             }));
         }
         this.input.onchange = ($event) => {
+            console.log($event);
             // @ts-ignore
-            Array.from(event.target.files).forEach((f) => __awaiter(this, void 0, void 0, function* () {
+            Array.from($event.target.files).forEach((f) => __awaiter(this, void 0, void 0, function* () {
                 this.documentList.push(f);
                 let index = this.documentList.indexOf(f);
                 yield this.setPreview(index, f);
