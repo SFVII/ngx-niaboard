@@ -2595,10 +2595,11 @@ class KonversoComponent {
         return isMobile.any();
     }
     addNewFiles(event) {
-        console.log(event);
+        if (this.documentList == undefined) {
+            this.documentList = [];
+        }
         if (event && event.length > 0) {
             this.documentList.push(...event);
-            console.log(this.documentList);
         }
     }
 }
