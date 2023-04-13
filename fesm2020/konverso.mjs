@@ -2429,6 +2429,7 @@ class KonversoComponent {
         console.log(event, 'on passe dans addnewfiles par erreur');
         if (event && event.length > 0) {
             this.documentList.push(...event);
+            this.service.documents.emit(this.documentList);
             console.log(this.documentList);
         }
     }
