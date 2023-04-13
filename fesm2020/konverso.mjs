@@ -2391,7 +2391,7 @@ class KonversoComponent {
     addNewFiles(event) {
         console.log(event);
         if (event && event.length > 0) {
-            this.documentList = [this.documentList, ...event];
+            this.documentList.push(...event);
             console.log(this.documentList);
         }
     }
