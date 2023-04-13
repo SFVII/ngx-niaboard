@@ -872,12 +872,14 @@ class ModalAddAttachmentsComponent {
         }
         this.input.onchange = ($event) => {
             console.log($event);
+            console.log(this.documentList);
             // @ts-ignore
             Array.from($event.target.files).forEach(async (f) => {
                 this.documentList.push(f);
                 let index = this.documentList.indexOf(f);
                 await this.setPreview(index, f);
             });
+            console.log(this.documentList, 'apres le foreach');
         };
     }
     async setPreview(index, blob) {
