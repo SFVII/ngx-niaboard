@@ -865,6 +865,7 @@ class ModalAddAttachmentsComponent {
     ngOnInit() {
         this.documentList = this.data.data.documentList || [];
         this.input = this.data.data.input;
+        console.log(this.documentList);
         if (this.documentList.length > 0) {
             this.documentList.forEach((f) => __awaiter(this, void 0, void 0, function* () {
                 this.documentList.push(f);
@@ -2183,12 +2184,12 @@ class DesktopFullScreenComponent {
                 list.forEach((d) => {
                     if (this.userInput.includes(d === null || d === void 0 ? void 0 : d.name)) {
                         // @ts-ignore
-                        this.userInput.replace(d.name, '');
+                        this.userInput = this.userInput.replace(d.name, '');
                     }
                     else {
                         let name = d.name.slice(0, d.name.lastIndexOf('.'));
                         // @ts-ignore
-                        this.userInput.replace(d.name, '');
+                        this.userInput = this.userInput.replace(d.name, '');
                     }
                 });
             }, 100);
