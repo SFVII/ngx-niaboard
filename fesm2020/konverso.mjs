@@ -872,7 +872,7 @@ class ModalAddAttachmentsComponent {
         console.log(this.documentList);
         if (this.documentList.length > 0) {
             this.documentList.forEach(async (f) => {
-                this.documentList.push(f);
+                // this.documentList.push(f);
                 let index = this.documentList.indexOf(f);
                 await this.setPreview(index, f);
             });
