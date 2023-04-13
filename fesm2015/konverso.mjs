@@ -564,6 +564,7 @@ class KonversoService {
         // tslint:disable-next-line:variable-name
         this._token = this.token.asObservable();
         this.localModalAttachments = {};
+        this.documents = new EventEmitter();
         this.buildHeaders();
         this.initInstance(config);
     }
@@ -861,6 +862,12 @@ class ModalAddAttachmentsComponent {
         this.dialogRef = dialogRef;
         this.documentList = [];
         this.displayText = {};
+        this.service.documents.subscribe((files) => {
+            files.forEach((f) => __awaiter(this, void 0, void 0, function* () {
+                let index = files.indexOf(f);
+                yield this.setPreview(index, f);
+            }));
+        });
     }
     ngOnInit() {
         this.documentList = this.data.data.documentList || [];
@@ -873,17 +880,17 @@ class ModalAddAttachmentsComponent {
                 yield this.setPreview(index, f);
             }));
         }
-        this.input.onchange = ($event) => {
-            console.log($event);
-            console.log(this.documentList);
-            // @ts-ignore
-            Array.from($event.target.files).forEach((f) => __awaiter(this, void 0, void 0, function* () {
-                // this.documentList.push(f);
-                let index = this.documentList.indexOf(f);
-                yield this.setPreview(index, f);
-            }));
-            console.log(this.documentList, 'apres le foreach');
-        };
+        // this.input.onchange= ($event: any) => {
+        //     console.log($event);
+        //     console.log(this.documentList);
+        //     // @ts-ignore
+        //     Array.from($event.target.files).forEach(async (f: any) => {
+        //         this.documentList.push(f);
+        //         let index = this.documentList.indexOf(f);
+        //         await this.setPreview(index, f)
+        //       });
+        //       console.log(this.documentList, 'apres le foreach');
+        // };
     }
     setPreview(index, blob) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -2537,16 +2544,17 @@ class KonversoComponent {
             console.log(this.documentList);
             this.documentList.push(f);
         });
+        this.service.documents.emit(this.documentList);
     }
     addFiles() {
         if (this.documentList == undefined) {
             this.documentList = [];
         }
         if (this.fileInput) {
-            // this.fileInput.onchange = (event: Event) => {
-            //     console.log(event);
-            //     this.onFileSelected(event);
-            // };
+            this.fileInput.onchange = (event) => {
+                console.log(event);
+                this.onFileSelected(event);
+            };
             console.log(this.documentList);
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
                 panelClass: 'modal-small',
