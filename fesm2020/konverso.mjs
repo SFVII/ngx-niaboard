@@ -2415,6 +2415,7 @@ class KonversoComponent {
         if (this.documentList == undefined) {
             this.documentList = [];
         }
+        console.log(event, 'on passe dans addnewfiles par erreur');
         if (event && event.length > 0) {
             this.documentList.push(...event);
             console.log(this.documentList);
