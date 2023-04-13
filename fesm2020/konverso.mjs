@@ -875,7 +875,7 @@ class ModalAddAttachmentsComponent {
             console.log(this.documentList);
             // @ts-ignore
             Array.from($event.target.files).forEach(async (f) => {
-                this.documentList.push(f);
+                // this.documentList.push(f);
                 let index = this.documentList.indexOf(f);
                 await this.setPreview(index, f);
             });
