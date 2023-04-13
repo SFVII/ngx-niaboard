@@ -870,14 +870,14 @@ class ModalAddAttachmentsComponent {
                 await this.setPreview(index, f);
             });
         }
-        // this.input.onchange= ($event: any) => {
-        //     // @ts-ignore
-        //     Array.from(event.target.files).forEach(async (f: any) => {
-        //         this.documentList.push(f);
-        //         let index = this.documentList.indexOf(f);
-        //         await this.setPreview(index, f)
-        //       });
-        // };
+        this.input.onchange = ($event) => {
+            // @ts-ignore
+            Array.from(event.target.files).forEach(async (f) => {
+                this.documentList.push(f);
+                let index = this.documentList.indexOf(f);
+                await this.setPreview(index, f);
+            });
+        };
     }
     async setPreview(index, blob) {
         setTimeout(() => {
@@ -2355,10 +2355,10 @@ class KonversoComponent {
             this.documentList = [];
         }
         if (this.fileInput) {
-            this.fileInput.onchange = (event) => {
-                console.log(event);
-                this.onFileSelected(event);
-            };
+            // this.fileInput.onchange = (event: Event) => {
+            //     console.log(event);
+            //     this.onFileSelected(event);
+            // };
             console.log(this.documentList);
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
                 panelClass: 'modal-small',
@@ -2412,14 +2412,14 @@ class KonversoComponent {
         return isMobile.any();
     }
     addNewFiles(event) {
-        // if (this.documentList == undefined) {
-        //     this.documentList = [];
-        // }
-        // console.log(event, 'on passe dans addnewfiles par erreur');
-        // if (event && event.length > 0) {
-        //     this.documentList.push(...event);
-        //     console.log(this.documentList);
-        // }
+        if (this.documentList == undefined) {
+            this.documentList = [];
+        }
+        console.log(event, 'on passe dans addnewfiles par erreur');
+        if (event && event.length > 0) {
+            this.documentList.push(...event);
+            console.log(this.documentList);
+        }
     }
 }
 KonversoComponent.ɵfac = function KonversoComponent_Factory(t) { return new (t || KonversoComponent)(i0.ɵɵdirectiveInject(KonversoService), i0.ɵɵdirectiveInject(i3.MatDialog)); };
