@@ -869,7 +869,6 @@ class ModalAddAttachmentsComponent {
     ngOnInit() {
         this.documentList = this.data.data.documentList || [];
         this.input = this.data.data.input;
-        console.log(this.documentList);
         if (this.documentList.length > 0) {
             this.documentList.forEach(async (f) => {
                 // this.documentList.push(f);
@@ -2367,10 +2366,8 @@ class KonversoComponent {
         }
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
-                console.log(event);
                 this.onFileSelected(event);
             };
-            console.log(this.documentList);
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
                 panelClass: 'modal-small',
                 data: {
@@ -2426,11 +2423,9 @@ class KonversoComponent {
         if (this.documentList == undefined) {
             this.documentList = [];
         }
-        console.log(event, 'on passe dans addnewfiles par erreur');
         if (event && event.length > 0) {
             this.documentList.push(...event);
             this.service.documents.emit(this.documentList);
-            console.log(this.documentList);
         }
     }
 }
