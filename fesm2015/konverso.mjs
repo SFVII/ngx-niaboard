@@ -2532,7 +2532,7 @@ class KonversoComponent {
     onFileSelected(event) {
         Array.from(event.target.files).forEach((f) => {
             console.log(this.documentList);
-            this.documentList.push(f);
+            // this.documentList.push(f);
         });
     }
     addFiles() {
