@@ -2426,6 +2426,7 @@ class KonversoComponent {
         if (event && event.length > 0) {
             this.documentList.push(...event);
             this.service.documents.emit(this.documentList);
+            this.files.emit(this.documentList);
         }
     }
 }
