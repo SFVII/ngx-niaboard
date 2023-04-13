@@ -2357,7 +2357,7 @@ class KonversoComponent {
         if (this.fileInput) {
             this.fileInput.onchange = (event) => {
                 console.log(event);
-                this.onFileSelected(event);
+                //this.onFileSelected(event);
             };
             console.log(this.documentList);
             const dialog = this.dialog.open(ModalAddAttachmentsComponent, {
