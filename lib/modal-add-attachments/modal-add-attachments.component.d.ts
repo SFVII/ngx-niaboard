@@ -16,6 +16,7 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
     documentList: Array<any>;
     input: HTMLInputElement;
     displayText: any;
+    message: string;
     constructor(data: {
         data: {
             input: HTMLInputElement;
@@ -24,7 +25,9 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
     }, service: KonversoService, translate: TranslateService, dialogRef: MatDialogRef<ModalAddAttachmentsComponent>);
     ngOnInit(): void;
     setPreview(index: number, blob: any): Promise<void>;
+    clearMessage(): void;
     deleteFile(file: any): void;
+    onPaste(e: any): Promise<void>;
     sendAttachments(): void;
     close(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ModalAddAttachmentsComponent, never>;
