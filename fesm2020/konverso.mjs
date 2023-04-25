@@ -963,7 +963,6 @@ class ModalAddAttachmentsComponent {
         this.dialogRef.close(this.documentList);
     }
     close() {
-        console.log(this.initialDocumentList);
         this.dialogRef.close(this.initialDocumentList);
     }
 }
