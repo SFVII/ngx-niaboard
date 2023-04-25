@@ -878,7 +878,6 @@ class ModalAddAttachmentsComponent {
         dialogRef.disableClose = true; // block the close with make lose the attachments
         this.service.documents.subscribe((files) => {
             files.forEach(async (f) => {
-                this.initialDocumentList.push(f);
                 const index = files.indexOf(f);
                 await this.setPreview(index, f);
             });
@@ -889,6 +888,7 @@ class ModalAddAttachmentsComponent {
         this.input = this.data.data.input;
         if (this.documentList.length > 0) {
             this.documentList.forEach(async (f) => {
+                this.initialDocumentList.push(f);
                 // this.documentList.push(f);
                 const index = this.documentList.indexOf(f);
                 await this.setPreview(index, f);
@@ -963,6 +963,7 @@ class ModalAddAttachmentsComponent {
         this.dialogRef.close(this.documentList);
     }
     close() {
+        console.log(this.initialDocumentList);
         this.dialogRef.close(this.initialDocumentList);
     }
 }
