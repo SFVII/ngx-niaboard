@@ -18,6 +18,7 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
     displayText: any;
     message: string;
     fileError: string;
+    initialDocumentList: Array<any>;
     constructor(data: {
         data: {
             input: HTMLInputElement;

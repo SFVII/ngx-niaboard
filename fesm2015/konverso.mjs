@@ -880,9 +880,11 @@ class ModalAddAttachmentsComponent {
         this.displayText = {};
         this.message = '';
         this.fileError = '';
+        this.initialDocumentList = [];
         dialogRef.disableClose = true; // block the close with make lose the attachments
         this.service.documents.subscribe((files) => {
             files.forEach((f) => __awaiter(this, void 0, void 0, function* () {
+                this.initialDocumentList.push(f);
                 const index = files.indexOf(f);
                 yield this.setPreview(index, f);
             }));
@@ -971,7 +973,7 @@ class ModalAddAttachmentsComponent {
         this.dialogRef.close(this.documentList);
     }
     close() {
-        this.dialogRef.close(null);
+        this.dialogRef.close(this.initialDocumentList);
     }
 }
 ModalAddAttachmentsComponent.ɵfac = function ModalAddAttachmentsComponent_Factory(t) { return new (t || ModalAddAttachmentsComponent)(i0.ɵɵdirectiveInject(MAT_DIALOG_DATA), i0.ɵɵdirectiveInject(KonversoService), i0.ɵɵdirectiveInject(TranslateService), i0.ɵɵdirectiveInject(i3.MatDialogRef)); };
