@@ -791,6 +791,7 @@ class TranslateService {
                 DROP_PHOTO: "Cliquez pour sélectionner vos fichiers",
                 I_FINISHED: "Ajouter",
                 COPY_PASTE: 'Vous pouvez copier / coller vos fichiers dans votre message',
+                INVALID_FILE_FORMAT: 'Le format du fichier est invalide',
             },
             'en': {
                 'GO': `Let's go`,
@@ -820,6 +821,7 @@ class TranslateService {
                 DROP_PHOTO: "Click to select your files",
                 I_FINISHED: "Add",
                 COPY_PASTE: 'You can copy / paste your files in your message',
+                INVALID_FILE_FORMAT: 'The file format is invalid',
             }
         };
     }
@@ -838,20 +840,32 @@ TranslateService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: Transla
         }], function () { return []; }, null);
 })();
 
-function ModalAddAttachmentsComponent_div_17_Template(rf, ctx) {
+function ModalAddAttachmentsComponent_div_10_Template(rf, ctx) {
     if (rf & 1) {
-        const _r4 = i0.ɵɵgetCurrentView();
-        i0.ɵɵelementStart(0, "div", 15)(1, "div", 16);
-        i0.ɵɵelement(2, "div", 17);
+        i0.ɵɵelementStart(0, "div", 16);
+        i0.ɵɵtext(1);
         i0.ɵɵelementEnd();
-        i0.ɵɵelementStart(3, "nb-icon", 18);
-        i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_div_17_Template_nb_icon_click_3_listener() { const restoredCtx = i0.ɵɵrestoreView(_r4); const d_r1 = restoredCtx.$implicit; const ctx_r3 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r3.deleteFile(d_r1)); });
+    }
+    if (rf & 2) {
+        const ctx_r0 = i0.ɵɵnextContext();
+        i0.ɵɵadvance(1);
+        i0.ɵɵtextInterpolate1(" ", ctx_r0.fileError, " ");
+    }
+}
+function ModalAddAttachmentsComponent_div_18_Template(rf, ctx) {
+    if (rf & 1) {
+        const _r5 = i0.ɵɵgetCurrentView();
+        i0.ɵɵelementStart(0, "div", 17)(1, "div", 18);
+        i0.ɵɵelement(2, "div", 19);
+        i0.ɵɵelementEnd();
+        i0.ɵɵelementStart(3, "nb-icon", 20);
+        i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_div_18_Template_nb_icon_click_3_listener() { const restoredCtx = i0.ɵɵrestoreView(_r5); const d_r2 = restoredCtx.$implicit; const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.deleteFile(d_r2)); });
         i0.ɵɵelementEnd()();
     }
     if (rf & 2) {
-        const index_r2 = ctx.index;
+        const index_r3 = ctx.index;
         i0.ɵɵadvance(2);
-        i0.ɵɵproperty("id", "img-preview-" + index_r2);
+        i0.ɵɵproperty("id", "img-preview-" + index_r3);
         i0.ɵɵadvance(1);
         i0.ɵɵproperty("icon", "delete_1")("size", 1.5);
     }
@@ -865,10 +879,11 @@ class ModalAddAttachmentsComponent {
         this.documentList = [];
         this.displayText = {};
         this.message = '';
+        this.fileError = '';
         dialogRef.disableClose = true; // block the close with make lose the attachments
         this.service.documents.subscribe((files) => {
             files.forEach((f) => __awaiter(this, void 0, void 0, function* () {
-                let index = files.indexOf(f);
+                const index = files.indexOf(f);
                 yield this.setPreview(index, f);
             }));
         });
@@ -879,7 +894,7 @@ class ModalAddAttachmentsComponent {
         if (this.documentList.length > 0) {
             this.documentList.forEach((f) => __awaiter(this, void 0, void 0, function* () {
                 // this.documentList.push(f);
-                let index = this.documentList.indexOf(f);
+                const index = this.documentList.indexOf(f);
                 yield this.setPreview(index, f);
             }));
         }
@@ -897,12 +912,38 @@ class ModalAddAttachmentsComponent {
     }
     setPreview(index, blob) {
         return __awaiter(this, void 0, void 0, function* () {
-            setTimeout(() => {
-                const image = document.getElementById('img-preview-' + index);
-                image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
-                image.style.backgroundSize = 'cover';
-                image.style.backgroundPosition = 'center center';
-            }, 500);
+            if (['image/jpeg', 'image/png', 'image/svg+xml'].includes(blob.type)) {
+                setTimeout(() => {
+                    const image = document.getElementById('img-preview-' + index);
+                    image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
+                    image.style.backgroundSize = 'cover';
+                    image.style.backgroundPosition = 'center center';
+                }, 500);
+            }
+            else if (['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(blob.type)) {
+                setTimeout(() => {
+                    const image = document.getElementById('img-preview-' + index);
+                    // image.style.background = 'url(' + URL.createObjectURL(blob) + ')';
+                    // image.style.backgroundSize = 'cover';
+                    // image.style.backgroundPosition = 'center center';
+                    image.classList.add('attachment-list-item-left');
+                    const ext = blob.name.split('.').pop();
+                    image.classList.add(ext);
+                    image.classList.add('d-flex-c');
+                    image.innerHTML = '.' + ext.toUpperCase();
+                }, 500);
+            }
+            else {
+                this.documentList.splice(index, 1);
+                this.fileError = this.translate.translate(this.service.locale, 'INVALID_FILE_FORMAT');
+                setTimeout(() => {
+                    // @ts-ignore
+                    document.getElementById('textarea').value = document.getElementById('textarea').value.replace(blob.name, '');
+                    this.message = this.message.replace(blob.name, '');
+                }, 100);
+                setTimeout(() => this.fileError = '', 2000);
+            }
         });
     }
     clearMessage() {
@@ -920,7 +961,7 @@ class ModalAddAttachmentsComponent {
                 if (item.kind == 'file') {
                     blob = item.getAsFile();
                     this.documentList.push(blob);
-                    let index = this.documentList.indexOf(blob);
+                    const index = this.documentList.indexOf(blob);
                     yield this.setPreview(index, blob);
                 }
             }
@@ -934,7 +975,7 @@ class ModalAddAttachmentsComponent {
     }
 }
 ModalAddAttachmentsComponent.ɵfac = function ModalAddAttachmentsComponent_Factory(t) { return new (t || ModalAddAttachmentsComponent)(i0.ɵɵdirectiveInject(MAT_DIALOG_DATA), i0.ɵɵdirectiveInject(KonversoService), i0.ɵɵdirectiveInject(TranslateService), i0.ɵɵdirectiveInject(i3.MatDialogRef)); };
-ModalAddAttachmentsComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: ModalAddAttachmentsComponent, selectors: [["modal-add-attachments"]], decls: 20, vars: 11, consts: [[1, "position-relative", "modal-attachments-content"], ["mat-dialog-close", "", 1, "close-dialog-icon", "close-dialog-icon-15", 3, "click"], [3, "icon", "size"], [1, "bot", "bot-no-anim"], [1, "circle1"], [1, "circle2"], [1, "circle3"], [1, "mt30", "nb-title-l", "title"], ["id", "textarea", "tabindex", "1", 1, "nb-text-3", "custom-scrollbar", "multiline", "full-width", 3, "ngModel", "placeholder", "keyup", "paste", "ngModelChange"], [1, "mt30", "mb15", "file", 3, "click"], [1, "nb-text-s", "file-message"], [1, "mb10", "nb-text-s-1", "file-format"], [1, "d-flex-ai-c", "flex-flow-wrap", "file-div-container", "custom-scrollbar"], ["class", "mb10 mr5 d-flex-ai-c", 4, "ngFor", "ngForOf"], [1, "mt15", "full-width", "rounded", "primary", "btn-send", 3, "disabled", "click"], [1, "mb10", "mr5", "d-flex-ai-c"], [1, "file-name-div", "d-flex-ai-c", "mr5"], [1, "pj-preview", "cursor-pointer", 3, "id"], [1, "mr0", "file-icon", 3, "icon", "size", "click"]], template: function ModalAddAttachmentsComponent_Template(rf, ctx) {
+ModalAddAttachmentsComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: ModalAddAttachmentsComponent, selectors: [["modal-add-attachments"]], decls: 21, vars: 12, consts: [[1, "position-relative", "modal-attachments-content"], ["mat-dialog-close", "", 1, "close-dialog-icon", "close-dialog-icon-15", 3, "click"], [3, "icon", "size"], [1, "bot", "bot-no-anim"], [1, "circle1"], [1, "circle2"], [1, "circle3"], [1, "mt30", "nb-title-l", "title"], ["id", "textarea", "tabindex", "1", 1, "nb-text-3", "custom-scrollbar", "multiline", "full-width", 3, "ngModel", "placeholder", "keyup", "paste", "ngModelChange"], ["class", "error", 4, "ngIf"], [1, "mt30", "mb15", "file", 3, "click"], [1, "nb-text-s", "file-message"], [1, "mb10", "nb-text-s-1", "file-format"], [1, "d-flex-ai-c", "flex-flow-wrap", "file-div-container", "custom-scrollbar"], ["class", "mb10 mr5 d-flex-ai-c", 4, "ngFor", "ngForOf"], [1, "mt15", "full-width", "rounded", "primary", "btn-send", 3, "disabled", "click"], [1, "error"], [1, "mb10", "mr5", "d-flex-ai-c"], [1, "file-name-div", "d-flex-ai-c", "mr5"], [1, "pj-preview", "cursor-pointer", 3, "id"], [1, "mr0", "file-icon", 3, "icon", "size", "click"]], template: function ModalAddAttachmentsComponent_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 0)(1, "div", 1);
             i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_Template_div_click_1_listener() { return ctx.close(); });
@@ -949,21 +990,22 @@ ModalAddAttachmentsComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type
             i0.ɵɵelementStart(9, "textarea", 8);
             i0.ɵɵlistener("keyup", function ModalAddAttachmentsComponent_Template_textarea_keyup_9_listener() { return ctx.clearMessage(); })("paste", function ModalAddAttachmentsComponent_Template_textarea_paste_9_listener($event) { return ctx.onPaste($event); })("ngModelChange", function ModalAddAttachmentsComponent_Template_textarea_ngModelChange_9_listener($event) { return ctx.message = $event; });
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(10, "div", 9);
-            i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_Template_div_click_10_listener() { return ctx.input.click(); });
-            i0.ɵɵelement(11, "nb-icon", 2);
-            i0.ɵɵelementStart(12, "div", 10);
-            i0.ɵɵtext(13);
+            i0.ɵɵtemplate(10, ModalAddAttachmentsComponent_div_10_Template, 2, 1, "div", 9);
+            i0.ɵɵelementStart(11, "div", 10);
+            i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_Template_div_click_11_listener() { return ctx.input.click(); });
+            i0.ɵɵelement(12, "nb-icon", 2);
+            i0.ɵɵelementStart(13, "div", 11);
+            i0.ɵɵtext(14);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(14, "div", 11);
-            i0.ɵɵtext(15, " Format .jpeg / .png / .svg ");
+            i0.ɵɵelementStart(15, "div", 12);
+            i0.ɵɵtext(16, " Format .jpeg / .png / .svg ");
             i0.ɵɵelementEnd()();
-            i0.ɵɵelementStart(16, "div", 12);
-            i0.ɵɵtemplate(17, ModalAddAttachmentsComponent_div_17_Template, 4, 3, "div", 13);
+            i0.ɵɵelementStart(17, "div", 13);
+            i0.ɵɵtemplate(18, ModalAddAttachmentsComponent_div_18_Template, 4, 3, "div", 14);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(18, "button", 14);
-            i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_Template_button_click_18_listener() { return ctx.sendAttachments(); });
-            i0.ɵɵtext(19);
+            i0.ɵɵelementStart(19, "button", 15);
+            i0.ɵɵlistener("click", function ModalAddAttachmentsComponent_Template_button_click_19_listener() { return ctx.sendAttachments(); });
+            i0.ɵɵtext(20);
             i0.ɵɵelementEnd()();
         }
         if (rf & 2) {
@@ -974,6 +1016,8 @@ ModalAddAttachmentsComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type
             i0.ɵɵadvance(1);
             i0.ɵɵpropertyInterpolate("placeholder", ctx.translate.translate(ctx.service.locale, "COPY_PASTE"));
             i0.ɵɵproperty("ngModel", ctx.message);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx.fileError != "");
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("icon", "image")("size", 1.5);
             i0.ɵɵadvance(2);
@@ -985,11 +1029,11 @@ ModalAddAttachmentsComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type
             i0.ɵɵadvance(1);
             i0.ɵɵtextInterpolate1(" ", ctx.translate.translate(ctx.service.locale, "I_FINISHED"), " ");
         }
-    }, dependencies: [i4.DefaultValueAccessor, i4.NgControlStatus, i4.NgModel, i5.NgForOf, i6.NowboardIconComponent], styles: [".modal-attachments-content[_ngcontent-%COMP%]   .bot-no-anim[_ngcontent-%COMP%]{margin:auto;height:120px;animation:none;-webkit-animation:none}.modal-attachments-content[_ngcontent-%COMP%]   .circle3[_ngcontent-%COMP%]{width:120px;height:120px}.modal-attachments-content[_ngcontent-%COMP%]   .circle2[_ngcontent-%COMP%]{width:90px;height:90px}.modal-attachments-content[_ngcontent-%COMP%]   .circle1[_ngcontent-%COMP%]{width:60px;height:60px}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]{margin:0!important}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]   .file-name-div[_ngcontent-%COMP%]{margin-bottom:0;width:auto;max-width:initial}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]   .file-name-div[_ngcontent-%COMP%]   .file-name[_ngcontent-%COMP%]{width:120px}.file-div-container[_ngcontent-%COMP%]{max-height:20vh;overflow-y:auto}"] });
+    }, dependencies: [i4.DefaultValueAccessor, i4.NgControlStatus, i4.NgModel, i5.NgForOf, i5.NgIf, i6.NowboardIconComponent], styles: [".modal-attachments-content[_ngcontent-%COMP%]   .bot-no-anim[_ngcontent-%COMP%]{margin:auto;height:120px;animation:none;-webkit-animation:none}.modal-attachments-content[_ngcontent-%COMP%]   .circle3[_ngcontent-%COMP%]{width:120px;height:120px}.modal-attachments-content[_ngcontent-%COMP%]   .circle2[_ngcontent-%COMP%]{width:90px;height:90px}.modal-attachments-content[_ngcontent-%COMP%]   .circle1[_ngcontent-%COMP%]{width:60px;height:60px}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]{margin:0!important}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]   .file-name-div[_ngcontent-%COMP%]{margin-bottom:0;width:auto;max-width:initial}.modal-attachments-content[_ngcontent-%COMP%]   .file-names[_ngcontent-%COMP%]   .file-name-div[_ngcontent-%COMP%]   .file-name[_ngcontent-%COMP%]{width:120px}.file-div-container[_ngcontent-%COMP%]{max-height:20vh;overflow-y:auto}"] });
 (function () {
     (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ModalAddAttachmentsComponent, [{
             type: Component,
-            args: [{ selector: 'modal-add-attachments', template: "<div class=\"position-relative modal-attachments-content\">\n\n    <div class=\"close-dialog-icon close-dialog-icon-15\" mat-dialog-close (click)=\"close()\">\n        <nb-icon [icon]=\"'close'\" [size]=\"1\"></nb-icon>\n    </div>\n\n    <div class=\"bot bot-no-anim\">\n        <div class=\"circle1\"></div>\n        <div class=\"circle2\"></div>\n        <div class=\"circle3\"></div>\n    </div>\n\n    <div class=\"mt30 nb-title-l title\">\n        {{ translate.translate(service.locale, 'SEND_ME_YOUR_ATTACHMENTS' ) }}\n    </div>\n\n    <textarea (keyup)=\"clearMessage()\" (paste)=\"onPaste($event)\" [(ngModel)]=\"message\" class=\"nb-text-3 custom-scrollbar multiline full-width\" id=\"textarea\"\n    placeholder=\"{{translate.translate(service.locale, 'COPY_PASTE' )}}\" tabindex=\"1\"></textarea>\n\n    <div class=\"mt30 mb15 file\" (click)=\"this.input.click()\">\n        <nb-icon [icon]=\"'image'\" [size]=\"1.5\"></nb-icon>\n        <div class=\"nb-text-s file-message\">\n          {{translate.translate(service.locale, 'DROP_PHOTO' ) }}\n        </div>\n        <div class=\"mb10 nb-text-s-1 file-format\">\n          Format .jpeg / .png / .svg\n        </div>\n\n    </div>\n\n    <!-- <ng-container *ngFor=\"let d of documentList; let index = index\">\n        <div class=\"mb15 file-names\">\n            <div class=\"file-name-div\">\n                <div class=\"mr10 tar file-name\">\n                    {{ d.name }}\n                </div>\n                <nb-icon (click)=\"deleteFile(d)\" [icon]=\"'delete_1'\" [size]=\"1.5\" class=\"mr0 file-icon\"></nb-icon>\n            </div>\n        </div>\n    </ng-container> -->\n\n    <div class=\"d-flex-ai-c flex-flow-wrap file-div-container custom-scrollbar\">\n        <div class=\"mb10 mr5 d-flex-ai-c\" *ngFor=\"let d of documentList; let index = index\">\n          <div class=\"file-name-div d-flex-ai-c mr5\">\n            <div class=\"pj-preview cursor-pointer\" [id]=\"'img-preview-'+index\"></div>\n          </div>\n    \n          <nb-icon (click)=\"deleteFile(d)\" [icon]=\"'delete_1'\" [size]=\"1.5\" class=\"mr0 file-icon\"></nb-icon>\n        </div>  \n    </div>\n\n    <button (click)=\"sendAttachments()\" [disabled]=\"!this.documentList || !this.documentList[0]?.name\" class=\"mt15 full-width rounded primary btn-send\">\n        {{translate.translate(service.locale, 'I_FINISHED' ) }}\n    </button>\n</div>\n", styles: [".modal-attachments-content .bot-no-anim{margin:auto;height:120px;animation:none;-webkit-animation:none}.modal-attachments-content .circle3{width:120px;height:120px}.modal-attachments-content .circle2{width:90px;height:90px}.modal-attachments-content .circle1{width:60px;height:60px}.modal-attachments-content .file-names{margin:0!important}.modal-attachments-content .file-names .file-name-div{margin-bottom:0;width:auto;max-width:initial}.modal-attachments-content .file-names .file-name-div .file-name{width:120px}.file-div-container{max-height:20vh;overflow-y:auto}\n"] }]
+            args: [{ selector: 'modal-add-attachments', template: "<div class=\"position-relative modal-attachments-content\">\n\n    <div class=\"close-dialog-icon close-dialog-icon-15\" mat-dialog-close (click)=\"close()\">\n        <nb-icon [icon]=\"'close'\" [size]=\"1\"></nb-icon>\n    </div>\n\n    <div class=\"bot bot-no-anim\">\n        <div class=\"circle1\"></div>\n        <div class=\"circle2\"></div>\n        <div class=\"circle3\"></div>\n    </div>\n\n    <div class=\"mt30 nb-title-l title\">\n        {{ translate.translate(service.locale, 'SEND_ME_YOUR_ATTACHMENTS' ) }}\n    </div>\n\n    <textarea (keyup)=\"clearMessage()\" (paste)=\"onPaste($event)\" [(ngModel)]=\"message\" class=\"nb-text-3 custom-scrollbar multiline full-width\" id=\"textarea\"\n    placeholder=\"{{translate.translate(service.locale, 'COPY_PASTE' )}}\" tabindex=\"1\"></textarea>\n\n    <div *ngIf=\"fileError != ''\" class=\"error\">\n        {{ fileError }}\n    </div>\n\n    <div class=\"mt30 mb15 file\" (click)=\"this.input.click()\">\n        <nb-icon [icon]=\"'image'\" [size]=\"1.5\"></nb-icon>\n        <div class=\"nb-text-s file-message\">\n          {{translate.translate(service.locale, 'DROP_PHOTO' ) }}\n        </div>\n        <div class=\"mb10 nb-text-s-1 file-format\">\n          Format .jpeg / .png / .svg\n        </div>\n\n    </div>\n\n    <!-- <ng-container *ngFor=\"let d of documentList; let index = index\">\n        <div class=\"mb15 file-names\">\n            <div class=\"file-name-div\">\n                <div class=\"mr10 tar file-name\">\n                    {{ d.name }}\n                </div>\n                <nb-icon (click)=\"deleteFile(d)\" [icon]=\"'delete_1'\" [size]=\"1.5\" class=\"mr0 file-icon\"></nb-icon>\n            </div>\n        </div>\n    </ng-container> -->\n\n    <div class=\"d-flex-ai-c flex-flow-wrap file-div-container custom-scrollbar\">\n        <div class=\"mb10 mr5 d-flex-ai-c\" *ngFor=\"let d of documentList; let index = index\">\n          <div class=\"file-name-div d-flex-ai-c mr5\">\n            <div class=\"pj-preview cursor-pointer\" [id]=\"'img-preview-'+index\"></div>\n          </div>\n    \n          <nb-icon (click)=\"deleteFile(d)\" [icon]=\"'delete_1'\" [size]=\"1.5\" class=\"mr0 file-icon\"></nb-icon>\n        </div>  \n    </div>\n\n    <button (click)=\"sendAttachments()\" [disabled]=\"!this.documentList || !this.documentList[0]?.name\" class=\"mt15 full-width rounded primary btn-send\">\n        {{translate.translate(service.locale, 'I_FINISHED' ) }}\n    </button>\n</div>\n", styles: [".modal-attachments-content .bot-no-anim{margin:auto;height:120px;animation:none;-webkit-animation:none}.modal-attachments-content .circle3{width:120px;height:120px}.modal-attachments-content .circle2{width:90px;height:90px}.modal-attachments-content .circle1{width:60px;height:60px}.modal-attachments-content .file-names{margin:0!important}.modal-attachments-content .file-names .file-name-div{margin-bottom:0;width:auto;max-width:initial}.modal-attachments-content .file-names .file-name-div .file-name{width:120px}.file-div-container{max-height:20vh;overflow-y:auto}\n"] }]
         }], function () {
         return [{ type: undefined, decorators: [{
                         type: Inject,
