@@ -2,9 +2,11 @@ import { EventEmitter } from '@angular/core';
 import { ColorSet, DefaultAssets, KonversoInterface, KonversoUser } from '../interface/KonversoInterface';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { NgxAttachmentService } from '@nowbrains/ngx-attachment';
 import * as i0 from "@angular/core";
 export declare class KonversoService {
     private http;
+    private attachment;
     authentication: EventEmitter<KonversoUser>;
     assets: DefaultAssets;
     firstVisit: boolean;
@@ -29,7 +31,7 @@ export declare class KonversoService {
     private endpoint;
     localModalAttachments: any;
     documents: EventEmitter<any>;
-    constructor(config: KonversoInterface, http: HttpClient);
+    constructor(config: KonversoInterface, http: HttpClient, attachment: NgxAttachmentService);
     /**
      * Send Query To backend server and get a response
      * @param query

@@ -26,6 +26,7 @@ export declare class ModalAddAttachmentsComponent implements OnInit {
         };
     }, service: KonversoService, translate: TranslateService, dialogRef: MatDialogRef<ModalAddAttachmentsComponent>);
     ngOnInit(): void;
+    receiveFiles($event: any): void;
     setPreview(index: number, blob: any): Promise<void>;
     clearMessage(): void;
     deleteFile(file: any): void;
