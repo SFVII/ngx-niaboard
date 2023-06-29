@@ -664,8 +664,10 @@ class KonversoService {
                         this.token.next(user === null || user === void 0 ? void 0 : user.token);
                         this.attachment.authentication.next({
                             lang: user.Language,
-                            token: user === null || user === void 0 ? void 0 : user.token
+                            token: user === null || user === void 0 ? void 0 : user.token,
+                            theme: '' + this.user.Settings.Template
                         });
+                        this.attachment.setEndpoint(config.endpoint_qrcode);
                     }
                     if (user === null || user === void 0 ? void 0 : user.firstVisit) {
                         this.firstVisit = true;
@@ -2714,7 +2716,7 @@ KonversoModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: [
         }),
         NgxAttachmentModule.forRoot({
             lang: 'fr',
-            endpoint: 'https://nowboard-api.preproduction.k8s.nowboard.fr/files-manager/qrcode',
+            endpoint: '',
             auth: true
         }), NowboardIconModule,
         NgxAttachmentModule] });
@@ -2741,7 +2743,7 @@ KonversoModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: [
                         }),
                         NgxAttachmentModule.forRoot({
                             lang: 'fr',
-                            endpoint: 'https://nowboard-api.preproduction.k8s.nowboard.fr/files-manager/qrcode',
+                            endpoint: '',
                             auth: true
                         })
                     ],

@@ -49,6 +49,7 @@ export interface DefaultAssets {
  */
 export interface KonversoInterface {
     endpoint: string;
+    endpoint_qrcode?: string;
     token?: string;
     auth?: boolean;
     lang?: string;
