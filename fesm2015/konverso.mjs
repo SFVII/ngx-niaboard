@@ -665,7 +665,7 @@ class KonversoService {
                         this.attachment.authentication.next({
                             lang: user.Language,
                             token: user === null || user === void 0 ? void 0 : user.token,
-                            theme: '' + this.user.Settings.Template
+                            theme: '' + user.Settings.Template
                         });
                         this.attachment.setEndpoint(config.endpoint_qrcode);
                     }
